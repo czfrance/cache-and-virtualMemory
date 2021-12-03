@@ -69,7 +69,6 @@ void to_hex(int *dec, int *len, char *hex) {
             else {
                 hex_reverse[i] = rem + 87;
             }
-            //printf("%c\n", hex_reverse[i]);
             i++;
             d = d / 16;
         }
@@ -81,7 +80,6 @@ void to_hex(int *dec, int *len, char *hex) {
             count++;
         }
     }
-    //printf("%s", hex);
 }
 
 int getlower(int *num, int *n) {
@@ -116,26 +114,19 @@ int main(int argc, char *argv[]) {
 
         if (fscanf(file, "%d", &word_size) == 1 && 
                 fscanf(file, "%d", &page_size) == 1) {
-            //printf("vah: %s, vab: %d, word: %d, page: %d\n", virt_addr_hex, 
-                //virt_addr, word_size, page_size);
-
             int offset_bits = log2(page_size);
             int vpn_bits = word_size - offset_bits;
-            //printf("osb: %d, vpnb: %d\n", offset_bits, vpn_bits);
 
             int offset = getlower(&virt_addr, &offset_bits);
             int vpn = dellower(&virt_addr, &offset_bits);
-            //printf("ofs: %d, vpn: %d\n", offset, vpn);
 
             int counter = 0;
             int ppn;
             for (int i = 0; i <= vpn; i++) {
                 fscanf(file, "%d", &ppn);
             }
-            //printf("ppn: %d\n", ppn);
             if (ppn >= 0) {
                 int phys_addr = offset | (ppn << offset_bits);
-                //printf("physaddr: %d\n", phys_addr);
                 char phys_addr_hex[6];
                 to_hex(&phys_addr, &len, phys_addr_hex);
 
